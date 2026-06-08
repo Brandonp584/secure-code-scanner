@@ -25,8 +25,8 @@ RULES = [
     {
         "id": "SEC002",
         "name": "Weak hash algorithm detected",
-        "severity": "Medium",
-        "description": "MD5 and SHA1 are weak hasing algorithms and should be avoided for secuurity-sensitive use.",
+        "severity": "MEDIUM",
+        "description": "MD5 and SHA1 are weak hashing algorithms and should be avoided for security-sensitive use.",
         "pattern": re.compile(r"\b(md5|sha1)\s*\(", re.IGNORECASE),
     },
 ]

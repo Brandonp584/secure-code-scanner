@@ -15,6 +15,37 @@ RULES = [
         "description": "exec() can execute dynamic Python code and may be dangerous.",
         "pattern": re.compile(r"\bexec\s*\("),
     },
+    { 
+        "id": "PY003",
+        "name": "subprocess with shell=True detected",
+        "severity": "HIGH",
+        "description": "using shell=True can introduce command injection risks if user input reaches the command.",
+        "pattern": re.compile(r"subprocess\.(run|call|Popen)\s*\(.*shell\s*=\s*True"),
+    },
+    {
+        "id": "PY004",
+        "name": "Possible command injection risk",
+        "severity": "HIGH",
+        "description": "os.system() executes shell commands and can be dangerous when combined with user input.",
+        "pattern": re.compile(r"\bos\.system\s*\("),
+    },
+    {
+        "id": "PY005",
+        "name": "Unsafe pickle deserialization detected",
+        "severity": "HIGH",
+        "description": "pickle.load() and pickle.loads() can execute malicious code when loading untrusted data.",
+        "pattern": re.compile(r"\bpickle\.loads?\s*\("),
+    },
+    {
+        "id": "SQL001",
+        "name": "Possible SQL injection risk",
+        "severity": "HIGH",
+        "description": "Building SQL queries with string formatting or concatenation can allow SQL injection.",
+        "pattern": re.compile(
+            r"(SELECT|INSERT|UPDATE|DELETE).*(\+|%|\.format\s*\(|f[\"'])",
+            re.IGNORECASE
+        ),
+    },
     {
         "id": "SEC001",
         "name": "Possible hardcoded password",
@@ -50,6 +81,16 @@ RULES = [
         "description": "Potential API key detected.",
         "pattern": re.compile(
             r"(api_key|apikey|secret_key)\s*=\s*[\"'].+[\"']",
+            re.IGNORECASE
+        ),
+    },
+    {
+        "id": "SEC006",
+        "name": "Possible hardcoded JWT secret",
+        "severity": "CRITICAL",
+        "description": "Hardcoded JWT secrets can allow attackers to forge or tamper with authentication tokens.",
+        "pattern": re.compile(
+            r"(jwt_secret|secret_key|token_secret)\s*=\s*[\"'].+[\"']",
             re.IGNORECASE
         ),
     },

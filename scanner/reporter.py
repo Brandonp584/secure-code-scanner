@@ -1,3 +1,5 @@
+from collections import Counter
+
 SEVERITY_ORDER = {
     "CRITICAL": 1,
     "HIGH": 2,
@@ -14,6 +16,20 @@ def print_report(findings):
         findings,
         key=lambda finding: SEVERITY_ORDER.get(finding["severity"], 99)
     )
+
+    severity_counts = Counter(
+        finding["severity"] for finding in findings
+    )
+
+    print("\nScan Summary")
+    print("=" * 50)
+
+    print(f"CRITICAL: {severity_counts.get('CRITICAL', 0)}")
+    print(f"HIGH: {severity_counts.get('HIGH', 0)}")
+    print(f"MEDIUM: {severity_counts.get('MEDIUM', 0)}")
+    print(f"LOW: {severity_counts.get('LOW', 0)}")
+
+    print(f"\nTotal Findings: {len(findings)}")
 
     print("\nSecure Code Scanner Report:")
     print("=" * 50)

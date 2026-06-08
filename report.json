@@ -1,10 +1,10 @@
 {
     "tool": "Secure Code Scanner",
     "version": "1.0.0",
-    "scan_time": "2026-06-08 22:10:17",
+    "scan_time": "2026-06-08 23:18:08",
     "scan_path": "tests",
     "scan_summary": {
-        "total_findings": 9,
+        "total_findings": 14,
         "security_score": 0
     },
     "findings": [
@@ -32,7 +32,7 @@
             "severity": "CRITICAL",
             "description": "Hardcoded credentials should not be stored directly in source code.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 3,
+            "line": 6,
             "code": "password = \"admin123\""
         },
         {
@@ -41,7 +41,7 @@
             "severity": "HIGH",
             "description": "eval() can execute arbitrary code and may lead to code injection.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 6,
+            "line": 9,
             "code": "eval(user_input)"
         },
         {
@@ -50,7 +50,7 @@
             "severity": "HIGH",
             "description": "exec() can execute dynamic Python code and may be dangerous.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 8,
+            "line": 11,
             "code": "exec(\"print('unsafe')\")"
         },
         {
@@ -59,7 +59,7 @@
             "severity": "MEDIUM",
             "description": "MD5 and SHA1 are weak hashing algorithms and should be avoided for security-sensitive use.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 10,
+            "line": 13,
             "code": "hashlib.md5(b\"password\").hexdigest()"
         },
         {
@@ -68,7 +68,7 @@
             "severity": "HIGH",
             "description": "Potential API key detected.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 12,
+            "line": 15,
             "code": "api_key = \"super-secret-api-key\""
         },
         {
@@ -77,7 +77,7 @@
             "severity": "CRITICAL",
             "description": "GitHub access token may be exposed.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 14,
+            "line": 17,
             "code": "github_token = \"github_pat_12345678901234567890\""
         },
         {
@@ -86,8 +86,53 @@
             "severity": "CRITICAL",
             "description": "AWS access key detected in source code.",
             "file": "tests\\vulnerable_examples\\bad_python.py",
-            "line": 16,
+            "line": 19,
             "code": "aws_key = \"AKIA1234567890ABCDEF\""
+        },
+        {
+            "rule_id": "PY003",
+            "name": "subprocess with shell=True detected",
+            "severity": "HIGH",
+            "description": "using shell=True can introduce command injection risks if user input reaches the command.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 21,
+            "code": "subprocess.run(user_input, shell=True)"
+        },
+        {
+            "rule_id": "PY004",
+            "name": "Possible command injection risk",
+            "severity": "HIGH",
+            "description": "os.system() executes shell commands and can be dangerous when combined with user input.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 23,
+            "code": "os.system(user_input)"
+        },
+        {
+            "rule_id": "PY005",
+            "name": "Unsafe pickle deserialization detected",
+            "severity": "HIGH",
+            "description": "pickle.load() and pickle.loads() can execute malicious code when loading untrusted data.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 25,
+            "code": "pickle.loads(user_input)"
+        },
+        {
+            "rule_id": "SQL001",
+            "name": "Possible SQL injection risk",
+            "severity": "HIGH",
+            "description": "Building SQL queries with string formatting or concatenation can allow SQL injection.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 27,
+            "code": "query = \"SELECT * FROM users WHERE username = '\" + user_input + \"'\""
+        },
+        {
+            "rule_id": "SEC006",
+            "name": "Possible hardcoded JWT secret",
+            "severity": "CRITICAL",
+            "description": "Hardcoded JWT secrets can allow attackers to forge or tamper with authentication tokens.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 29,
+            "code": "jwt_secret = \"super-secret-jwt-key\""
         }
     ]
 }

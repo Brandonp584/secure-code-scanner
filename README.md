@@ -12,6 +12,19 @@ The tool recursively scans source code files, identifies security issues, assign
 
 ---
 
+## Screenshots
+
+### HTML Reports
+![HTML Report 1](images/htmlreport1.jpg)
+
+![HTML Report 2](images/htmlreport2.jpg)
+
+### Terminal Output
+
+![Terminal Report 1](images/terminalreport1.jpg)
+
+![Terminal Report 2](images/terminalreport2.jpg)
+
 ## Features
 
 ### Static Analysis
@@ -174,13 +187,13 @@ The project was created for secure development education, cybersecurity learning
 
 Planned enhancements include:
 
-* SQL Injection detection
-* Command Injection detection
-* Additional secret scanning rules
 * GitHub Actions CI/CD integration
 * SARIF report export
 * Expanded language support
+* Additional secret scanning rules
+* File exclusion support
 * Additional security scoring metrics
+* Detection of insecure cryptographic configurations
 
 ---
 

@@ -85,15 +85,15 @@
         <div class="metadata">
             <p><strong>Tool:</strong> Secure Code Scanner</p>
             <p><strong>Version:</strong> 1.0.0</p>
-            <p><strong>Generated:</strong> 2026-06-08 22:10:17</p>
+            <p><strong>Generated:</strong> 2026-06-08 23:18:08</p>
             <p><strong>Scan Path:</strong> tests</p>
         </div>
 
         <h2>Scan Summary</h2>
 
         <div class="summary">
-            <div class="card">Critical<strong>4</strong></div>
-            <div class="card">High<strong>4</strong></div>
+            <div class="card">Critical<strong>5</strong></div>
+            <div class="card">High<strong>8</strong></div>
             <div class="card">Medium<strong>1</strong></div>
             <div class="card">Low<strong>0</strong></div>
             <div class="card">Score<strong>0/100</strong></div>
@@ -140,7 +140,7 @@
             <td>SEC001</td>
             <td>Possible hardcoded password</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>3</td>
+            <td>6</td>
             <td><code>password = &quot;admin123&quot;</code></td>
             <td>Hardcoded credentials should not be stored directly in source code.</td>
         </tr>
@@ -150,7 +150,7 @@
             <td>PY001</td>
             <td>Use of eval() detected</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>6</td>
+            <td>9</td>
             <td><code>eval(user_input)</code></td>
             <td>eval() can execute arbitrary code and may lead to code injection.</td>
         </tr>
@@ -160,7 +160,7 @@
             <td>PY002</td>
             <td>Use of exec() detected</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>8</td>
+            <td>11</td>
             <td><code>exec(&quot;print(&#x27;unsafe&#x27;)&quot;)</code></td>
             <td>exec() can execute dynamic Python code and may be dangerous.</td>
         </tr>
@@ -170,7 +170,7 @@
             <td>SEC002</td>
             <td>Weak hash algorithm detected</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>10</td>
+            <td>13</td>
             <td><code>hashlib.md5(b&quot;password&quot;).hexdigest()</code></td>
             <td>MD5 and SHA1 are weak hashing algorithms and should be avoided for security-sensitive use.</td>
         </tr>
@@ -180,7 +180,7 @@
             <td>SEC005</td>
             <td>Possible API key</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>12</td>
+            <td>15</td>
             <td><code>api_key = &quot;super-secret-api-key&quot;</code></td>
             <td>Potential API key detected.</td>
         </tr>
@@ -190,7 +190,7 @@
             <td>SEC003</td>
             <td>Possible GitHub token</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>14</td>
+            <td>17</td>
             <td><code>github_token = &quot;github_pat_12345678901234567890&quot;</code></td>
             <td>GitHub access token may be exposed.</td>
         </tr>
@@ -200,9 +200,59 @@
             <td>SEC004</td>
             <td>Possible AWS access key</td>
             <td>tests\vulnerable_examples\bad_python.py</td>
-            <td>16</td>
+            <td>19</td>
             <td><code>aws_key = &quot;AKIA1234567890ABCDEF&quot;</code></td>
             <td>AWS access key detected in source code.</td>
+        </tr>
+        
+        <tr>
+            <td>HIGH</td>
+            <td>PY003</td>
+            <td>subprocess with shell=True detected</td>
+            <td>tests\vulnerable_examples\bad_python.py</td>
+            <td>21</td>
+            <td><code>subprocess.run(user_input, shell=True)</code></td>
+            <td>using shell=True can introduce command injection risks if user input reaches the command.</td>
+        </tr>
+        
+        <tr>
+            <td>HIGH</td>
+            <td>PY004</td>
+            <td>Possible command injection risk</td>
+            <td>tests\vulnerable_examples\bad_python.py</td>
+            <td>23</td>
+            <td><code>os.system(user_input)</code></td>
+            <td>os.system() executes shell commands and can be dangerous when combined with user input.</td>
+        </tr>
+        
+        <tr>
+            <td>HIGH</td>
+            <td>PY005</td>
+            <td>Unsafe pickle deserialization detected</td>
+            <td>tests\vulnerable_examples\bad_python.py</td>
+            <td>25</td>
+            <td><code>pickle.loads(user_input)</code></td>
+            <td>pickle.load() and pickle.loads() can execute malicious code when loading untrusted data.</td>
+        </tr>
+        
+        <tr>
+            <td>HIGH</td>
+            <td>SQL001</td>
+            <td>Possible SQL injection risk</td>
+            <td>tests\vulnerable_examples\bad_python.py</td>
+            <td>27</td>
+            <td><code>query = &quot;SELECT * FROM users WHERE username = &#x27;&quot; + user_input + &quot;&#x27;&quot;</code></td>
+            <td>Building SQL queries with string formatting or concatenation can allow SQL injection.</td>
+        </tr>
+        
+        <tr>
+            <td>CRITICAL</td>
+            <td>SEC006</td>
+            <td>Possible hardcoded JWT secret</td>
+            <td>tests\vulnerable_examples\bad_python.py</td>
+            <td>29</td>
+            <td><code>jwt_secret = &quot;super-secret-jwt-key&quot;</code></td>
+            <td>Hardcoded JWT secrets can allow attackers to forge or tamper with authentication tokens.</td>
         </tr>
         
             </tbody>

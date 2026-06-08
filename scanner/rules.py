@@ -29,4 +29,28 @@ RULES = [
         "description": "MD5 and SHA1 are weak hashing algorithms and should be avoided for security-sensitive use.",
         "pattern": re.compile(r"\b(md5|sha1)\s*\(", re.IGNORECASE),
     },
+    {
+        "id": "SEC003",
+        "name": "Possible GitHub token",
+        "severity": "CRITICAL",
+        "description": "GitHub access token may be exposed.",
+        "pattern": re.compile(r"github_pat_[A-Za-z0-9_]{20,}",)
+    },
+    {
+        "id": "SEC004",
+        "name": "Possible AWS access key",
+        "severity": "CRITICAL",
+        "description": "AWS access key detected in source code.",
+        "pattern": re.compile(r"AKIA[0-9A-Z]{16}"),
+    },
+    {
+        "id": "SEC005",
+        "name": "Possible API key",
+        "severity": "HIGH",
+        "description": "Potential API key detected.",
+        "pattern": re.compile(
+            r"(api_key|apikey|secret_key)\s*=\s*[\"'].+[\"']",
+            re.IGNORECASE
+        ),
+    },
 ]

@@ -57,3 +57,10 @@ def print_report(findings):
         print(f"Why it matters: {finding['description']}")
 
     print("\nScan complete.")
+
+def calculate_security_score(findings):
+    risk_points = sum(
+        SEVERITY_POINTS.get(finding["severity"], 0)
+        for finding in findings
+    )
+    return max(0, 100 - risk_points)

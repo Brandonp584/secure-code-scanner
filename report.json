@@ -1,6 +1,11 @@
 {
+    "tool": "Secure Code Scanner",
+    "version": "1.0.0",
+    "scan_time": "2026-06-08 21:37:58",
+    "scan_path": "tests",
     "scan_summary": {
-        "total_findings": 4
+        "total_findings": 7,
+        "security_score": 5
     },
     "findings": [
         {
@@ -38,6 +43,33 @@
             "file": "tests\\vulnerable_examples\\bad_python.py",
             "line": 10,
             "code": "hashlib.md5(b\"password\").hexdigest()"
+        },
+        {
+            "rule_id": "SEC005",
+            "name": "Possible API key",
+            "severity": "HIGH",
+            "description": "Potential API key detected.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 12,
+            "code": "api_key = \"super-secret-api-key\""
+        },
+        {
+            "rule_id": "SEC003",
+            "name": "Possible GitHub token",
+            "severity": "CRITICAL",
+            "description": "GitHub access token may be exposed.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 14,
+            "code": "github_token = \"github_pat_12345678901234567890\""
+        },
+        {
+            "rule_id": "SEC004",
+            "name": "Possible AWS access key",
+            "severity": "CRITICAL",
+            "description": "AWS access key detected in source code.",
+            "file": "tests\\vulnerable_examples\\bad_python.py",
+            "line": 16,
+            "code": "aws_key = \"AKIA1234567890ABCDEF\""
         }
     ]
 }

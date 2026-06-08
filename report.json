@@ -1,13 +1,31 @@
 {
     "tool": "Secure Code Scanner",
     "version": "1.0.0",
-    "scan_time": "2026-06-08 21:37:58",
+    "scan_time": "2026-06-08 22:10:17",
     "scan_path": "tests",
     "scan_summary": {
-        "total_findings": 7,
-        "security_score": 5
+        "total_findings": 9,
+        "security_score": 0
     },
     "findings": [
+        {
+            "rule_id": "PY001",
+            "name": "Use of eval() detected",
+            "severity": "HIGH",
+            "description": "eval() can execute arbitrary code and may lead to code injection.",
+            "file": "tests\\test_scanner.py",
+            "line": 11,
+            "code": "test_file.write_text(\"eval(user_input)\", encoding=\"utf-8\")"
+        },
+        {
+            "rule_id": "SEC001",
+            "name": "Possible hardcoded password",
+            "severity": "CRITICAL",
+            "description": "Hardcoded credentials should not be stored directly in source code.",
+            "file": "tests\\test_scanner.py",
+            "line": 22,
+            "code": "test_file.write_text('password = \"admin123\"', encoding=\"utf-8\")"
+        },
         {
             "rule_id": "SEC001",
             "name": "Possible hardcoded password",

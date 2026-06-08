@@ -4,7 +4,7 @@ from scanner.reporter import (
     print_report,
     calculate_security_score
 )
-from scanner.exporter import export_json
+from scanner.exporter import export_json, export_html
 
 def main():
     parser = argparse.ArgumentParser(
@@ -22,6 +22,11 @@ def main():
         help="Export findings to a json report file."
     )
 
+    parser.add_argument(
+        "--html",
+        help="Export findings to an HTML report file."
+    )
+
     args = parser.parse_args()
 
     findings = scan_project(args.path)
@@ -33,6 +38,14 @@ def main():
         export_json(
             findings,
             args.json,
+            args.path,
+            security_score
+        )
+    
+    if args.html:
+        export_html(
+            findings,
+            args.html,
             args.path,
             security_score
         )

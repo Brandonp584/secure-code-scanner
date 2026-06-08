@@ -7,6 +7,13 @@ SEVERITY_ORDER = {
     "LOW": 4,
 }
 
+SEVERITY_POINTS = {
+    "CRITICAL": 20,
+    "HIGH": 10,
+    "MEDIUM": 5,
+    "LOW": 1,
+}
+
 def print_report(findings):
     if not findings:
         print("\nNo security findings detected.")
@@ -21,6 +28,13 @@ def print_report(findings):
         finding["severity"] for finding in findings
     )
 
+    risk_points = sum(
+        SEVERITY_POINTS.get(finding["severity"], 0)
+        for finding in findings
+    )
+
+    security_score = max(0, 100 - risk_points)
+
     print("\nScan Summary")
     print("=" * 50)
 
@@ -28,8 +42,8 @@ def print_report(findings):
     print(f"HIGH: {severity_counts.get('HIGH', 0)}")
     print(f"MEDIUM: {severity_counts.get('MEDIUM', 0)}")
     print(f"LOW: {severity_counts.get('LOW', 0)}")
-
     print(f"\nTotal Findings: {len(findings)}")
+    print(f"Security Score: {security_score}/100")
 
     print("\nSecure Code Scanner Report:")
     print("=" * 50)
